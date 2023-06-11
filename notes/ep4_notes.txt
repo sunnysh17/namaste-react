@@ -84,5 +84,39 @@ const Body = () => {
 
     );
 };
+--------------------------------------------------------------------
+<h3>{resData.data.name}</h3>
+<h4>{resData.data.cuisines.join(", ")}</h4>
+<h4>{resData.data.avgRating} stars</h4>
+<h4>₹{resData.data.costForTwo/100} FOR TWO</h4>
+<h4>{resData.data.deliveryTime} minutes</h4>
 
+resData.data.deliveryTime - Not a good practice, so destructure it
 
+--------------------------------------------
+<RestaurantCard resData={resList[0]}/>
+<RestaurantCard resData={resList[1]}/>
+<RestaurantCard resData={resList[2]}/>
+<RestaurantCard resData={resList[3]}/>        -----> Not a good practice, so loop over it using JS map function
+<RestaurantCard resData={resList[4]}/>
+<RestaurantCard resData={resList[5]}/>
+<RestaurantCard resData={resList[6]}/>
+--------------------------------------------
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search">Search</div>
+            <div className="res-container">
+                {/* this will contain restro cards */}
+                {
+                    resList.map(restaurant => <RestaurantCard resData={restaurant}/>)
+                }
+            </div>
+        </div>
+
+    );
+};
+------------------------------------------------------------
+Warning - Warning: Each child in a list should have a unique "key" prop.
+Solution - key is a reserved word, must be used while looping
+ <RestaurantCard key={restaurant.data.id} resData={restaurant}/>

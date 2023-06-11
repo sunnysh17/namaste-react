@@ -1,0 +1,18 @@
+#let's get hooked
+
+1} Make separate files for separate Components.
+
+2} Never Keep hardcoded data in Components folder - keep it in utils folder
+
+3} There are two types of exports & imports
+- default exports & imports
+- named exports & imports
+- We can only write one default export
+
+A] deafult Export/Import 
+export deafult Component;
+import Component from "path";
+
+B] named export/import
+export const Component
+import {Component} from "path";

@@ -33,7 +33,7 @@
     margin: 6px;
     padding: 12px;
     width: 220px;
-    height: 371px;
+    /* height: 371px; */
     
 }
 
@@ -48,4 +48,9 @@
 
 .res-logo{
     width: 100%;
+}
+
+.filter-btn{
+    margin: 10px;
+    cursor: pointer;
 }
