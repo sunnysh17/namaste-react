@@ -1,0 +1,88 @@
+/*
+            Header
+                | - Logo
+                | - List Items (Right Side)
+                | - Cart
+            Body
+                | - Search Bar
+                | - Restaurant List
+                | - Restaurant Card
+                    | - Image
+                    | - Name
+                    | - Rating
+                    | - Cuisines (tag)
+                    | - ETA
+            Footer
+                | - Links
+                | - Copyright
+             
+            */
+
+**Question: How can we generate cards dynamically?**
+Answer: We can use props to generate cards dynamically
+
+const RestaurantCard = (props) => {
+    console.log(props);
+    return (
+        <div className="res-card" style={{ backgroundColor:"#f0f0f0" }}>
+            <img 
+            className="res-logo"
+            alt="res-logo"
+            src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/p9fv8plp2ievunbvvfge" 
+            />
+            <h3>{props.resName}</h3>
+            <h4>{props.cuisine}</h4>
+            <h4>4.5 stars</h4>
+            <h4>38 minutes</h4>
+        </div>
+    );
+};
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search">Search</div>
+            <div className="res-container">
+                {/* this will contain restro cards */}
+                <RestaurantCard resName="Meghana Foods" cuisine="North Indian, Asian"/>
+                <RestaurantCard resName="KFC" cuisine="Burger, Fast Food"/>
+            </div>
+        </div>
+
+    );
+};
+
+***** We can also pass props using destructuring *****
+
+const RestaurantCard = ({resName,cuisine}) => {
+    console.log(props);
+    return (
+        <div className="res-card" style={{ backgroundColor:"#f0f0f0" }}>
+            <img 
+            className="res-logo"
+            alt="res-logo"
+            src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/p9fv8plp2ievunbvvfge" 
+            />
+            <h3>{resName}</h3>
+            <h4>{cuisine}</h4>
+            <h4>4.5 stars</h4>
+            <h4>38 minutes</h4>
+        </div>
+    );
+};
+
+const Body = () => {
+    return (
+        <div className="body">
+            <div className="search">Search</div>
+            <div className="res-container">
+                {/* this will contain restro cards */}
+                <RestaurantCard resName="Meghana Foods" cuisine="North Indian, Asian"/>
+                <RestaurantCard resName="KFC" cuisine="Burger, Fast Food"/>
+            </div>
+        </div>
+
+    );
+};
+
+
