@@ -16,3 +16,41 @@ import Component from "path";
 B] named export/import
 export const Component
 import {Component} from "path";
+--------------------------------------------------------------
+useState()
+ //Creating a Local State Variables
+    const [listOfRestaurants, setListOfRestaurant] = useState([
+        {
+            "data": {
+              "id": "25610",
+              "name": "Balaji Food Court",
+              "cloudinaryImageId": "mx2xvec1dkyu8yxor1ml",
+              "cuisines": ["North Indian","Chinese","Juices","Continental","Ice Cream","South Indian"],
+              "costForTwo": 25000,
+              "deliveryTime": 40,
+              "avgRating": "3.8",  
+          },
+        },
+        {
+            "data": {
+              "id": "25611",
+              "name": "Dominos",
+              "cloudinaryImageId": "mx2xvec1dkyu8yxor1ml",
+              "cuisines": ["Pizza","Chinese","Juices"],
+              "costForTwo": 25000,
+              "deliveryTime": 40,
+              "avgRating": "4.5",  
+          },
+        },
+        {
+            "data": {
+              "id": "25612",
+              "name": "McDonalds",
+              "cloudinaryImageId": "mx2xvec1dkyu8yxor1ml",
+              "cuisines": ["Pizza","Burger"],
+              "costForTwo": 25000,
+              "deliveryTime": 40,
+              "avgRating": "4.1",  
+          },
+        },
+    ]);
