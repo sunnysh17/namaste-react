@@ -1,0 +1,8 @@
+Hook is just a normal js function with specific function
+
+useEffect(callbackfunc,dependencyarr)
+callback function will be called after our component renders
+
+Whenever we change a local state Variables react re-renders the entire component.
+
+Whenever the state Variables updates, react triggers the reconciliation cycle(re-renders the component)
