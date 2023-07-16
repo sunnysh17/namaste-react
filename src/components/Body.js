@@ -2,7 +2,8 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 //import resList from "../utils/mockData";
 import {useEffect, useState} from "react";
-
+import {Link} from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
     //Creating a Local State Variables
     const [listOfRestaurants, setListOfRestaurant] = useState([]);
@@ -33,6 +34,13 @@ const Body = () => {
         setListOfRestaurant(json?.data?.cards[2]?.data?.data?.cards);
         setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     };
+
+
+    const onlineStatus = useOnlineStatus();
+    if(onlineStatus === false) 
+    return (
+        <h2>Looks like you are offline,please check your internet connection</h2>
+    );
 
     //Conditional rendering
     // if(listOfRestaurants.length === 0){
@@ -80,7 +88,7 @@ const Body = () => {
             <div className="res-container">
                 {/* this will contain restro cards */}
                 {filteredRestaurant.map((restaurant) => (
-                    <RestaurantCard key={restaurant.data.id} resData={restaurant}/>
+                    <Link key={restaurant.data.id} to={"/restaurants/"+restaurant.data.id}><RestaurantCard  resData={restaurant}/></Link>
                 ))}
             </div>
         </div>
