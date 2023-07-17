@@ -51,17 +51,16 @@ const Body = () => {
     <Shimmer/>
     ) : (
         <div className="body">
-
-            <div className="filter">
-                <div className="search">
+            <div className="filter flex">
+                <div className="search m-4 p-4">
                     <input type="text" 
-                    className="search-box" 
+                    className="border border-solid border-black" 
                     value={searchText} 
                     onChange={(e)=>{
                         setSearchText(e.target.value);
                     }}/>
 
-                    <button onClick={()=>{
+                    <button className="px-4 py-2 bg-green-100 m-4 rounded-lg" onClick={()=>{
                         //Filter the Restaurants Cards & Update the UI
                         //searchtext
                         console.log(searchText);
@@ -70,10 +69,12 @@ const Body = () => {
                             (res)=> res.data.name.toLowerCase().includes(searchText.toLowerCase())   
                         );
                         setFilteredRestaurant(filteredRestaurant);
-                    }}>Search</button>
+                    }}>Search
+                    </button>
                 </div>
+                <div className="search m-4 p-4 flex items-center">
                 <button 
-                    className="filter-btn" 
+                    className="px-4 py-2 bg-green-100 m-4 rounded-lg" 
                     onClick={() => {
                         //Filter logic here - Displaying restro with rating > 4
                         const filteredList = listOfRestaurants.filter(
@@ -83,9 +84,11 @@ const Body = () => {
                     }}>
                     Top Rated Restaurants
                 </button>
+                </div>
+                
             </div>
 
-            <div className="res-container">
+            <div className="flex flex-wrap justify-center">
                 {/* this will contain restro cards */}
                 {filteredRestaurant.map((restaurant) => (
                     <Link key={restaurant.data.id} to={"/restaurants/"+restaurant.data.id}><RestaurantCard  resData={restaurant}/></Link>
