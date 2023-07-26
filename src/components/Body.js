@@ -1,9 +1,10 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withPromotedLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 //import resList from "../utils/mockData";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 const Body = () => {
     //Creating a Local State Variables
     const [listOfRestaurants, setListOfRestaurant] = useState([]);
@@ -13,6 +14,10 @@ const Body = () => {
     //search box state variable
     const [searchText,setSearchText] = useState("");
 
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
+    console.log("Body Rendered",listOfRestaurants);
+
     useEffect(()=>{
         //console.log("useEffect called");
         fetchData();
@@ -21,18 +26,20 @@ const Body = () => {
     //Function to fetch data from API
     const fetchData = async () =>{
         const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.191389&lng=72.9441772&page_type=DESKTOP_WEB_LISTING"
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.6287557&lng=79.4191795&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING%22"
         );
         
         //concert data to json format
         const json  = await data.json();
-        console.log(json);
+        //console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        // console.log(json);
         //Not a good practice
         //setListOfRestaurant(json.data.cards[2].data.data.cards);
 
         //Use Optional Chaining
-        setListOfRestaurant(json?.data?.cards[2]?.data?.data?.cards);
-        setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
+        // setListOfRestaurant(json?.data?.cards[2]?.data?.data?.cards);
+        setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     };
 
 
@@ -49,7 +56,8 @@ const Body = () => {
 
     return listOfRestaurants.length === 0 ? (
     <Shimmer/>
-    ) : (
+    ) : 
+    (
         <div className="body">
             <div className="filter flex">
                 <div className="search m-4 p-4">
@@ -66,7 +74,7 @@ const Body = () => {
                         console.log(searchText);
 
                         const filteredRestaurant = listOfRestaurants.filter(
-                            (res)=> res.data.name.toLowerCase().includes(searchText.toLowerCase())   
+                            (res)=> res.info.name.toLowerCase().includes(searchText.toLowerCase())   
                         );
                         setFilteredRestaurant(filteredRestaurant);
                     }}>Search
@@ -78,7 +86,7 @@ const Body = () => {
                     onClick={() => {
                         //Filter logic here - Displaying restro with rating > 4
                         const filteredList = listOfRestaurants.filter(
-                                (res) => res.data.avgRating > 4
+                                (res) => res.info.avgRating > 4
                             );
                         setListOfRestaurant(filteredList);
                     }}>
@@ -90,8 +98,18 @@ const Body = () => {
 
             <div className="flex flex-wrap justify-center">
                 {/* this will contain restro cards */}
-                {filteredRestaurant.map((restaurant) => (
-                    <Link key={restaurant.data.id} to={"/restaurants/"+restaurant.data.id}><RestaurantCard  resData={restaurant}/></Link>
+                {listOfRestaurants.map((restaurant) => (
+                    <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}>
+                    {/* {if the restaurant is promoted add a label to it} */
+                        restaurant.info.promoted? 
+                        (
+                        <RestaurantCardPromoted resData={restaurant}/>
+                        ) : 
+                        (
+                        <RestaurantCard  resData={restaurant}/>
+                        )
+                    }
+                    </Link>
                 ))}
             </div>
         </div>
